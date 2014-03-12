@@ -1,0 +1,11 @@
+<dl>
+  <% @features.each do |feature| %>
+    <dt>
+      <%= feature["id"] %>
+    </dt>
+
+    <dd>
+      <%= feature["description"] %>
+    </dd>
+  <% end %>
+</dl>

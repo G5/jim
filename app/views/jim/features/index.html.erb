@@ -3,15 +3,13 @@
 </div>
 
 <% @features.each do |feature| %>
-  <% enabled = Jim::FeatureManager.instance.enabled?(feature["id"].to_sym) %>
-
-  <div class="panel panel-<%= enabled ? "success" : "danger" %> <%= feature["id"] %>">
+  <div class="panel panel-<%= feature.enabled? ? "success" : "danger" %> <%= feature.id %>">
     <div class="panel-heading">
-      <%= feature["id"] %>
+      <%= feature.id %>
     </div>
     <div class="panel-body">
       <p>
-        <%= feature["description"] %>
+        <%= feature.description %>
       </p>
     </div>
   </div>

@@ -2,3 +2,6 @@ features:
   -
     id: time_travel
     description: "Traveling through time"
+  -
+    id: space_travel
+    description: "Traveling through space"

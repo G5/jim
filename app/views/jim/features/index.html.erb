@@ -1,11 +1,18 @@
-<dl>
-  <% @features.each do |feature| %>
-    <dt>
-      <%= feature["id"] %>
-    </dt>
+<div class="page-header">
+  <h1>Features</h1>
+</div>
 
-    <dd>
-      <%= feature["description"] %>
-    </dd>
-  <% end %>
-</dl>
+<% @features.each do |feature| %>
+  <% enabled = Jim::FeatureManager.instance.enabled?(feature["id"].to_sym) %>
+
+  <div class="panel panel-<%= enabled ? "success" : "danger" %> <%= feature["id"] %>">
+    <div class="panel-heading">
+      <%= feature["id"] %>
+    </div>
+    <div class="panel-body">
+      <p>
+        <%= feature["description"] %>
+      </p>
+    </div>
+  </div>
+<% end %>

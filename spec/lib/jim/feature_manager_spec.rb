@@ -13,6 +13,7 @@ describe Jim::FeatureManager do
       { "id" => "time_travel", "description" => "Travel through time!" }
     ]}
   end
+  let(:time_travel) { feature_hash["features"].first }
 
   describe ".instance" do
     it "returns the same instance" do
@@ -56,10 +57,10 @@ describe Jim::FeatureManager do
   describe "programmatic enablement" do
     describe "ruby" do
       before do
-        feature_hash["features"].first["enablement"] = {
+        time_travel["enablements"] = [{
           "method" => "ruby",
           "class" => "TestRubyEnablement"
-        }
+        }]
       end
 
       it "executes the specified class to determine enablement status" do
@@ -69,11 +70,11 @@ describe Jim::FeatureManager do
 
     describe "environment" do
       before do
-        feature_hash["features"].first["enablement"] = {
+        time_travel["enablements"] = [{
           "method" => "environment",
           "variable_name" => "test_enablement",
           "matching" => /^hello$/
-        }
+        }]
       end
       after { ENV.delete("test_enablement") }
       subject { feature_manager.enabled?(:time_travel) }

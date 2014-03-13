@@ -13,19 +13,21 @@ class Jim::FeatureManager
       end.map(&:to_sym)
 
       @feature_hashes.each do |feature_hash|
-        if feature_hash["enablement"].present?
-          case feature_hash["enablement"]["method"]
-          when "ruby"
-            if feature_hash["enablement"]["class"].constantize.enable?
-              enable(feature_hash["id"].to_sym)
-            end
-          when "environment"
-            value = ENV[feature_hash["enablement"]["variable_name"]]
-            regex = feature_hash["enablement"]["matching"]
+        if feature_hash["enablements"].present?
+          all_true = feature_hash["enablements"].all? do |enablement_hash|
+            case enablement_hash["method"]
+            when "ruby"
+              enablement_hash["class"].constantize.enable?
+            when "environment"
+              value = ENV[enablement_hash["variable_name"]]
+              regex = enablement_hash["matching"]
 
-            if value.present? && value.match(regex)
-              enable(feature_hash["id"].to_sym)
+              value.present? && value.match(regex)
             end
+          end
+
+          if all_true
+            enable(feature_hash["id"].to_sym)
           end
         end
       end

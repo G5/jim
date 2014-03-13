@@ -2,13 +2,15 @@ features:
   -
     id: time_travel
     description: "Traveling through time"
-    enablement:
-      method: ruby
-      class: Enablement::TimeTravel
+    enablements:
+      -
+        method: ruby
+        class: Enablement::TimeTravel
   -
     id: space_travel
     description: "Traveling through space"
-    enablement:
-      method: environment
-      variable_name: SHELL
-      matching: !ruby/regexp '/.+/'
+    enablements:
+      -
+        method: environment
+        variable_name: SHELL
+        matching: !ruby/regexp '/.+/'

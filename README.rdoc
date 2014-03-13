@@ -1,3 +1,6 @@
 = Jim
 
 This project rocks and uses MIT-LICENSE.
+
+= TODO
+ * Describe proper regex definition in a YAML file: http://codereview.stackexchange.com/questions/159/use-of-a-regex-stored-inside-yaml-file

@@ -1,5 +1,11 @@
 require 'spec_helper'
 
+class TestRubyEnablement
+  def self.enable?
+    true
+  end
+end
+
 describe Jim::FeatureManager do
   let(:feature_manager) { Jim::FeatureManager.new(feature_hash) }
   let(:feature_hash) do
@@ -45,5 +51,46 @@ describe Jim::FeatureManager do
     subject { feature_manager.features }
 
     it { should eql(feature_hash["features"]) }
+  end
+
+  describe "programmatic enablement" do
+    describe "ruby" do
+      before do
+        feature_hash["features"].first["enablement"] = {
+          "method" => "ruby",
+          "class" => "TestRubyEnablement"
+        }
+      end
+
+      it "executes the specified class to determine enablement status" do
+        expect(feature_manager.enabled?(:time_travel)).to be_true
+      end
+    end
+
+    describe "environment" do
+      before do
+        feature_hash["features"].first["enablement"] = {
+          "method" => "environment",
+          "variable_name" => "test_enablement",
+          "matching" => /^hello$/
+        }
+      end
+      after { ENV.delete("test_enablement") }
+      subject { feature_manager.enabled?(:time_travel) }
+
+      context "when the ENV var is not set" do
+        it { should be_false }
+      end
+
+      context "when the ENV var doesn't match" do
+        before { ENV["test_enablement"] = "ello" }
+        it { should be_false }
+      end
+
+      context "when the ENV var matches" do
+        before { ENV["test_enablement"] = "hello" }
+        it { should be_true }
+      end
+    end
   end
 end

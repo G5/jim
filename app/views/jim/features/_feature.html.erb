@@ -6,13 +6,27 @@
     <p>
       <%= feature.description %>
     </p>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Enablements
+        <span class="badge pull-right"><%= feature.enablements.count %></span>
+      </div>
+
+      <ul class="list-group enablements">
+        <%= render feature.enablements %>
+      </ul>
+    </div>
+
+    <% if feature.dependants.present?  %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Dependants
+        <span class="badge pull-right"><%= feature.dependants.count %></span>
+        </div>
+
+        <%= render "dependants", feature: feature %>
+      </div>
+    <% end %>
   </div>
-
-  <ul class="list-group enablements">
-    <%= render feature.enablements %>
-  </ul>
-
-  <% if feature.dependants.present?  %>
-    <%= render "dependants", feature: feature %>
-  <% end %>
 </div>

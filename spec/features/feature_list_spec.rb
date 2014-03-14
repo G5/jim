@@ -8,7 +8,11 @@ describe "Feature list" do
     within(".time_travel") do
       expect(page).to have_content("time_travel")
       expect(page).to have_content("Traveling through time")
-      expect(page).to have_content("Need flux capacitor")
+
+      within(".enablements") do
+        expect(page).to have_selector(".list-group-item-danger")
+        expect(page).to have_content("Need flux capacitor")
+      end
 
       within(".dependants") do
         expect(page).to have_content("Escape the Libyans")

@@ -1,4 +1,4 @@
-<li class="list-group-item">
+<%= list_item(environment) do %>
   <p>
     Environment variable '<%= environment.variable_name %>': <%= environment.redact_value ? "redacted" : environment.value %>
   </p>
@@ -8,4 +8,4 @@
       Example: <em><%= environment.example %></em>
     </p>
   <% end %>
-</li>
+<% end %>

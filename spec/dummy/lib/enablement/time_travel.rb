@@ -3,5 +3,9 @@ module Enablement
     def self.enable?
       false
     end
+
+    def self.description
+      "Need flux capacitor"
+    end
   end
 end

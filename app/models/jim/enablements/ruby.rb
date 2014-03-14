@@ -7,5 +7,13 @@ module Jim::Enablements
     def enabled?
       @klass.enable?
     end
+
+    def description
+      @klass.try(:description)
+    end
+
+    def to_partial_path
+      "enablements/ruby"
+    end
   end
 end

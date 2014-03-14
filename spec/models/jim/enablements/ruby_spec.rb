@@ -12,9 +12,40 @@ class TestFalseRubyEnablement
   end
 end
 
+class TestNoDescriptionEnablement
+  def self.enable?
+    false
+  end
+end
+
+class TestDescriptionEnablement
+  def self.enable?
+    false
+  end
+
+  def self.description
+    "Test description"
+  end
+end
+
 describe Jim::Enablements::Ruby do
+  let(:enablement) { Jim::Enablements::Ruby.new(class_name) }
+
+  describe "#description" do
+    subject { enablement.description }
+
+    context "when the class defines a description" do
+      let(:class_name) { "TestDescriptionEnablement" }
+      it { should eq(TestDescriptionEnablement.description) }
+    end
+
+    context "when the class defines no description" do
+      let(:class_name) { "TestNoDescriptionEnablement" }
+      it { should be_nil }
+    end
+  end
+
   describe "#enabled?" do
-    let(:enablement) { Jim::Enablements::Ruby.new(class_name) }
     subject { enablement.enabled? }
 
     context "when the class can't be found" do

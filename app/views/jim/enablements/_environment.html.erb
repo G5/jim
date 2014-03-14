@@ -1,6 +1,8 @@
 <%= list_item(environment) do %>
   <p>
-    Environment variable '<%= environment.variable_name %>': <%= environment.redact_value ? "redacted" : environment.value %>
+    Environment variable '<%= environment.variable_name %>':
+
+    <%= environment_value(environment) %>
   </p>
 
   <% if environment.example.present? %>

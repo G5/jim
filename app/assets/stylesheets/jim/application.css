@@ -11,3 +11,11 @@
  *= require_self
  *= require_tree .
  */
+
+.redacted {
+  background-color: black;
+  color: white;
+  padding: 4px 4px;
+  font-style: italic;
+  font-weight: bolder;
+}

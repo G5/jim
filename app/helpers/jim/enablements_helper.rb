@@ -11,4 +11,15 @@ module Jim::EnablementsHelper
       yield
     end
   end
+
+  def environment_value(environment)
+    redact = environment.redact_value
+
+    content_tag(
+      :span,
+      class: redact ? "redacted" : nil
+    ) do
+      redact ? "redacted" : environment.value
+    end
+  end
 end

@@ -14,6 +14,7 @@ features:
         method: environment
         variable_name: SHELL
         matching: !ruby/regexp '/.+/'
+        example: /bin/fish
       -
         method: environment
         variable_name: USER

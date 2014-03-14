@@ -2,4 +2,10 @@
   <p>
     Environment variable '<%= environment.variable_name %>': <%= environment.redact_value ? "redacted" : environment.value %>
   </p>
+
+  <% if environment.example.present? %>
+    <p>
+      Example: <em><%= environment.example %></em>
+    </p>
+  <% end %>
 </li>

@@ -44,7 +44,7 @@ describe Jim::FeatureManager do
       subject { features.first }
 
       its(:id) { should eq(:time_travel) }
-      its(:description) { should eq("Travel through time!") }
+      its(:description) { should include("Travel through time!") }
     end
   end
 
@@ -65,7 +65,7 @@ describe Jim::FeatureManager do
 
       its(:length) { should eq(1) }
       its("first.name") { should eq("Name") }
-      its("first.description") { should eq("Description") }
+      its("first.description") { should include("Description") }
     end
   end
 end

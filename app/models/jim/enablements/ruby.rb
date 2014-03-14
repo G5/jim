@@ -1,5 +1,3 @@
-require 'redcarpet'
-
 module Jim::Enablements
   class Ruby
     def initialize(class_name:)
@@ -11,9 +9,7 @@ module Jim::Enablements
     end
 
     def description
-      Redcarpet::Markdown.new(Redcarpet::Render::HTML).
-        render(description_from_klass).
-        html_safe
+      Jim.markdown_render(description_from_klass)
     end
 
     def to_partial_path

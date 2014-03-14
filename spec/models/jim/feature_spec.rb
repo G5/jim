@@ -12,12 +12,14 @@ describe Jim::Feature do
     subject { feature.description }
 
     context "when none has been set" do
-      it { should be_nil }
+      it { should be_blank }
     end
 
     context "when one has been set" do
       before { feature.description = "test" }
-      it { should eq("test") }
+
+      it { should include("test") }
+      it { should be_html_safe }
     end
   end
 end

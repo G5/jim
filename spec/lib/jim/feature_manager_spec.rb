@@ -4,7 +4,8 @@ describe Jim::FeatureManager do
   let(:feature_manager) { Jim::FeatureManager.new(feature_hash) }
   let(:feature_hash) do
     { "features" => [
-      { "id" => "time_travel", "description" => "Travel through time!" }
+      { "id" => "time_travel", "description" => "Travel through time!" },
+      { "id" => "space_travel", "description" => "Travel through space!" }
     ]}
   end
   let(:time_travel) { feature_hash["features"].first }
@@ -38,7 +39,7 @@ describe Jim::FeatureManager do
   describe "#features" do
     subject(:features) { feature_manager.features }
 
-    its(:length) { should eq(1) }
+    its(:length) { should eq(2) }
 
     describe "the first one" do
       subject { features.first }
@@ -66,6 +67,21 @@ describe Jim::FeatureManager do
       its(:length) { should eq(1) }
       its("first.name") { should eq("Name") }
       its("first.description") { should include("Description") }
+    end
+
+    context "passed an array of features" do
+      before do
+        feature_manager.add_dependency(
+          [ :time_travel, :space_travel],
+          "Name",
+          "Description"
+        )
+      end
+
+      it "adds itself as a dependency to both features" do
+        expect(feature_manager.find_by_id(:time_travel).dependants.length).to eq(1)
+        expect(feature_manager.find_by_id(:space_travel).dependants.length).to eq(1)
+      end
     end
   end
 end

@@ -30,10 +30,13 @@ class Jim::FeatureManager
     feature
   end
 
-  def add_dependency(feature_id, name, description)
-    feature = find_by_id(feature_id)
-    feature.add_dependant(
-      Jim::Dependant.new(name, description)
-    )
+  def add_dependency(features, name, description)
+    feature_ids = [features].flatten
+    feature_ids.each do |feature_id|
+      feature = find_by_id(feature_id)
+      feature.add_dependant(
+        Jim::Dependant.new(name, description)
+      )
+    end
   end
 end

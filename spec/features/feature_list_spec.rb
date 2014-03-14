@@ -4,13 +4,16 @@ describe "Feature list" do
   it "sees a list of known features" do
     visit jim.features_path
 
-    expect(page).to have_selector(".time_travel.panel-danger")
+    expect(page).to have_content("features are not enabled")
+
     within(".time_travel") do
       expect(page).to have_content("time_travel")
       expect(page).to have_content("Traveling through time")
+      expect(page).to have_selector(".panel-title .label-danger")
+      expect(page).to have_selector(".collapse.in")
 
       within(".enablements") do
-        expect(page).to have_selector(".list-group-item-danger")
+        expect(page).to have_content("disabled")
         expect(page).to have_content("Need flux capacitor")
       end
 
@@ -20,9 +23,10 @@ describe "Feature list" do
       end
     end
 
-    expect(page).to have_selector(".space_travel.panel-success")
     within(".space_travel") do
       expect(page).to have_content("space_travel")
+      expect(page).to have_selector(".panel-title .label-success")
+      expect(page).to have_no_selector(".collapse.in")
 
       within(".enablements") do
         expect(page).to have_content("Environment variable 'SHELL'")

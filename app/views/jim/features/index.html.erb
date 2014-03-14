@@ -2,6 +2,20 @@
   <h1>Features</h1>
 </div>
 
+<% if @features.all?(&:enabled?) %>
+  <div class="alert alert-success">
+    <strong>Good job!</strong>
+    All of your features are enabled!
+  </div>
+<% else %>
+  <div class="alert alert-warning">
+    <strong>Warning!</strong>
+    Some features are not enabled.
+  </div>
+<% end %>
+
 <% @features.each do |feature| %>
-  <%= render "feature", feature: feature %>
+  <div class="panel-group">
+    <%= render "feature", feature: feature %>
+  </div>
 <% end %>

@@ -28,6 +28,16 @@ class TestDescriptionEnablement
   end
 end
 
+class TestMarkdownEnablement
+  def self.enable?
+    false
+  end
+
+  def self.description
+    "This *is* test"
+  end
+end
+
 describe Jim::Enablements::Ruby do
   let(:enablement) { Jim::Enablements::Ruby.new(class_name) }
 
@@ -36,12 +46,18 @@ describe Jim::Enablements::Ruby do
 
     context "when the class defines a description" do
       let(:class_name) { "TestDescriptionEnablement" }
-      it { should eq(TestDescriptionEnablement.description) }
+      it { should include(TestDescriptionEnablement.description) }
+    end
+
+    context "when the description is markdown" do
+      let(:class_name) { "TestMarkdownEnablement" }
+      it { should be_html_safe }
+      it { should include("This <em>is</em> test") }
     end
 
     context "when the class defines no description" do
       let(:class_name) { "TestNoDescriptionEnablement" }
-      it { should be_nil }
+      it { should be_blank }
     end
   end
 

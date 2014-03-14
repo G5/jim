@@ -5,7 +5,7 @@ module Enablement
     end
 
     def self.description
-      "Need flux capacitor"
+      "Need *flux* capacitor"
     end
   end
 end

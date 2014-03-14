@@ -24,7 +24,8 @@ protected
     when "environment"
       Jim::Enablements::Environment.new(
         hash["variable_name"],
-        hash["matching"]
+        hash["matching"],
+        hash["redact_value"]
       )
     end
   end

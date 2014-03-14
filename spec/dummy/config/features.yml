@@ -14,3 +14,8 @@ features:
         method: environment
         variable_name: SHELL
         matching: !ruby/regexp '/.+/'
+      -
+        method: environment
+        variable_name: USER
+        matching: !ruby/regexp '/.+/'
+        redact_value: true

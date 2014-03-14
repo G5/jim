@@ -1,5 +1,5 @@
 <li class="list-group-item">
   <p>
-    Environment variable '<%= environment.variable_name %>': <%= environment.value %>
+    Environment variable '<%= environment.variable_name %>': <%= environment.redact_value ? "redacted" : environment.value %>
   </p>
 </li>

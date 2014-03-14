@@ -3,12 +3,40 @@ require 'spec_helper'
 describe Jim::Enablements::Environment do
   describe "accessors" do
     subject do
-      Jim::Enablements::Environment.new("SHELL", /.+/ )
+      Jim::Enablements::Environment.new("SHELL", /.+/)
     end
 
     its(:variable_name) { should eq("SHELL") }
     its(:regex) { should eq(/.+/) }
-    its(:value) { should eq(ENV["SHELL"]) }
+    its(:redact_value) { should be_false }
+  end
+
+  describe "#value" do
+    subject { enablement.value }
+
+    context "by default" do
+      let(:enablement) do
+        Jim::Enablements::Environment.new("SHELL", /.+/)
+      end
+
+      it { should eq(ENV["SHELL"]) }
+    end
+
+    context "when redact_value is false" do
+      let(:enablement) do
+        Jim::Enablements::Environment.new("SHELL", /.+/, false)
+      end
+
+      it { should eq(ENV["SHELL"]) }
+    end
+
+    context "when redact_value is true" do
+      let(:enablement) do
+        Jim::Enablements::Environment.new("SHELL", /.+/, true)
+      end
+
+      it { should be_nil }
+    end
   end
 
   describe "#enabled?" do

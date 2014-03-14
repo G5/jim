@@ -1,14 +1,19 @@
 class Jim::Feature
-  attr_reader :id, :enablements
+  attr_reader :id, :enablements, :dependants
   attr_accessor :description
 
   def initialize(id)
     @id = id
-    @enablements ||= []
+    @enablements = []
+    @dependants = []
   end
 
   def add_enablement(enablement_hash)
     @enablements << enablement_from_hash(enablement_hash)
+  end
+
+  def add_dependant(dependant)
+    @dependants << dependant
   end
 
   def enabled?

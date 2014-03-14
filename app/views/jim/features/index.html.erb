@@ -3,18 +3,5 @@
 </div>
 
 <% @features.each do |feature| %>
-  <div class="panel panel-<%= feature.enabled? ? "success" : "danger" %> <%= feature.id %>">
-    <div class="panel-heading">
-      <%= feature.id %>
-    </div>
-    <div class="panel-body">
-      <p>
-        <%= feature.description %>
-      </p>
-    </div>
-
-    <ul class="list-group">
-      <%= render feature.enablements %>
-    </ul>
-  </div>
+  <%= render "feature", feature: feature %>
 <% end %>

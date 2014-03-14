@@ -31,7 +31,6 @@ describe Jim::Feature do
     end
   end
 
-
   describe "#add_enablement" do
     context "with an unknown method value" do
       it "raises a helpful exception" do
@@ -91,6 +90,21 @@ describe Jim::Feature do
 
       expect(enablements.second.class).to eq(Jim::Enablements::Ruby)
       expect(enablements.second.description).to include("Test from Feature spec")
+    end
+  end
+
+  describe "#dependants" do
+    subject { feature.dependants }
+
+    context "by default" do
+      it { should be_empty }
+    end
+
+    context "after adding a Dependant" do
+      let(:dependant) { Jim::Dependant.new("Test", "Test") }
+      before { feature.add_dependant(dependant) }
+
+      it { should eq([ dependant ]) }
     end
   end
 end

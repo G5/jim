@@ -1,0 +1,7 @@
+<ul class="list-group dependants">
+  <% feature.dependants.each do |dependant| %>
+    <li class="list-group-item">
+      <%= render "dependant", dependant: dependant %>
+    </li>
+  <% end %>
+</ul>

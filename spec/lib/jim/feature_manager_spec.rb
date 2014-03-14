@@ -47,4 +47,25 @@ describe Jim::FeatureManager do
       its(:description) { should eq("Travel through time!") }
     end
   end
+
+  describe "#add_dependency" do
+    context "passed an unknown feature" do
+      it "raises an UnknownFeatureError" do
+        expect {
+          feature_manager.add_dependency(:bad, "test", "test")
+        }.to raise_error(Jim::UnknownFeatureError, /bad/)
+      end
+    end
+
+    context "passed a known feature" do
+      before do
+        feature_manager.add_dependency(:time_travel, "Name", "Description")
+      end
+      subject { feature_manager.find_by_id(:time_travel).dependants }
+
+      its(:length) { should eq(1) }
+      its("first.name") { should eq("Name") }
+      its("first.description") { should eq("Description") }
+    end
+  end
 end

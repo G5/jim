@@ -29,4 +29,11 @@ class Jim::FeatureManager
     raise Jim::UnknownFeatureError.new(feature_id) unless feature.present?
     feature
   end
+
+  def add_dependency(feature_id, name, description)
+    feature = find_by_id(feature_id)
+    feature.add_dependant(
+      Jim::Dependant.new(name, description)
+    )
+  end
 end

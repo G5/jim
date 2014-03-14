@@ -8,7 +8,7 @@ class Jim::Feature
   end
 
   def add_enablement(enablement_hash)
-    @enablements << enablement_class_from_hash(enablement_hash)
+    @enablements << enablement_from_hash(enablement_hash)
   end
 
   def enabled?
@@ -17,16 +17,17 @@ class Jim::Feature
 
 protected
 
-  def enablement_class_from_hash(hash)
-    case hash["method"]
-    when "ruby"
-      Jim::Enablements::Ruby.new(hash["class"])
-    when "environment"
-      Jim::Enablements::Environment.new(
-        hash["variable_name"],
-        hash["matching"],
-        hash["redact_value"]
-      )
-    end
+  def enablement_from_hash(hash)
+    klass = enablement_class_for_method(hash["method"])
+    enablement_arguments = hash.except("method").symbolize_keys
+
+    klass.new(enablement_arguments)
+  end
+
+  def enablement_class_for_method(method)
+    class_name = method.classify
+    "Jim::Enablements::#{class_name}".constantize
+  rescue NameError
+    raise "I don't know the enablement method '#{method}'"
   end
 end

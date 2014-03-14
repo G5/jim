@@ -4,6 +4,10 @@ class FeatureSpecEnablement
   def self.enable?
     true
   end
+
+  def self.description
+    "Test from Feature spec"
+  end
 end
 
 describe Jim::Feature do
@@ -24,6 +28,17 @@ describe Jim::Feature do
     context "when one has been set" do
       before { feature.description = "test" }
       it { should eq("test") }
+    end
+  end
+
+
+  describe "#add_enablement" do
+    context "with an unknown method value" do
+      it "raises a helpful exception" do
+        expect {
+          feature.add_enablement("method" => "Bad")
+        }.to raise_error(/enablement method 'Bad'/)
+      end
     end
   end
 
@@ -63,8 +78,7 @@ describe Jim::Feature do
       )
       feature.add_enablement(
         "method" => "ruby",
-        "class" => "FeatureSpecEnablement",
-        "matching" => /.+/
+        "class_name" => "FeatureSpecEnablement"
       )
     end
     subject(:enablements) { feature.enablements }
@@ -73,7 +87,10 @@ describe Jim::Feature do
 
     it "returns all the enablements" do
       expect(enablements.first.class).to eq(Jim::Enablements::Environment)
+      expect(enablements.first.variable_name).to eq("SHELL")
+
       expect(enablements.second.class).to eq(Jim::Enablements::Ruby)
+      expect(enablements.second.description).to include("Test from Feature spec")
     end
   end
 end

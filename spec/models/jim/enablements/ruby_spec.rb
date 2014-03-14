@@ -39,7 +39,7 @@ class TestMarkdownEnablement
 end
 
 describe Jim::Enablements::Ruby do
-  let(:enablement) { Jim::Enablements::Ruby.new(class_name) }
+  let(:enablement) { Jim::Enablements::Ruby.new(class_name: class_name) }
 
   describe "#description" do
     subject { enablement.description }

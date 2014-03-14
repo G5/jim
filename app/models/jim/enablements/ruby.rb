@@ -2,7 +2,7 @@ require 'redcarpet'
 
 module Jim::Enablements
   class Ruby
-    def initialize(class_name)
+    def initialize(class_name:)
       @klass = class_name.constantize
     end
 

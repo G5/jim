@@ -2,8 +2,8 @@ module Jim::Enablements
   class Environment
     attr_accessor :variable_name, :regex, :redact_value
 
-    def initialize(variable_name, regex, redact_value = false)
-      @variable_name, @regex, @redact_value = variable_name, regex, redact_value
+    def initialize(variable_name:, matching:, redact_value: false)
+      @variable_name, @regex, @redact_value = variable_name, matching, redact_value
       @value = ENV[@variable_name]
     end
 

@@ -5,7 +5,7 @@ features:
     enablements:
       -
         method: ruby
-        class: Enablement::TimeTravel
+        class_name: Enablement::TimeTravel
   -
     id: space_travel
     description: "Traveling through space"

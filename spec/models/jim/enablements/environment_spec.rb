@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe Jim::Enablements::Environment do
-  describe "accessors" do
-    subject do
-      Jim::Enablements::Environment.new("SHELL", /.+/)
-    end
+  subject(:enablement) { Jim::Enablements::Environment.new(arguments) }
+  let(:arguments) { { variable_name: "SHELL", matching: /.+/ } }
 
+  describe "accessors" do
     its(:variable_name) { should eq("SHELL") }
     its(:regex) { should eq(/.+/) }
     its(:redact_value) { should be_false }
@@ -15,37 +14,22 @@ describe Jim::Enablements::Environment do
     subject { enablement.value }
 
     context "by default" do
-      let(:enablement) do
-        Jim::Enablements::Environment.new("SHELL", /.+/)
-      end
-
       it { should eq(ENV["SHELL"]) }
     end
 
     context "when redact_value is false" do
-      let(:enablement) do
-        Jim::Enablements::Environment.new("SHELL", /.+/, false)
-      end
-
+      before { arguments[:redact_value] = false }
       it { should eq(ENV["SHELL"]) }
     end
 
     context "when redact_value is true" do
-      let(:enablement) do
-        Jim::Enablements::Environment.new("SHELL", /.+/, true)
-      end
-
+      before { arguments[:redact_value] = true }
       it { should be_nil }
     end
   end
 
   describe "#enabled?" do
-    let(:enablement) do
-      Jim::Enablements::Environment.new(
-        "test_enablement",
-        /^hello$/
-      )
-    end
+    let(:arguments) { { variable_name: "test_enablement", matching: /^hello$/ } }
     subject { enablement.enabled? }
     after { ENV.delete("test_enablement") }
 

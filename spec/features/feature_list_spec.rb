@@ -21,6 +21,11 @@ describe "Feature list" do
         expect(page).to have_content("Escape the Libyans")
         expect(page).to have_content("stolen plutonium")
       end
+
+      within(".panel-footer") do
+        expect(page).to have_content("Depends on delorean")
+        expect(page).to have_selector(".label-success")
+      end
     end
 
     expect(page).to have_selector(".space_travel.panel-success")
@@ -41,6 +46,7 @@ describe "Feature list" do
       end
 
       expect(page).to have_no_selector(".dependants")
+      expect(page).to have_no_selector(".panel-footer")
     end
   end
 end

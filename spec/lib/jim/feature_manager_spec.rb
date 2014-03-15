@@ -4,8 +4,9 @@ describe Jim::FeatureManager do
   let(:feature_manager) { Jim::FeatureManager.new(feature_hash) }
   let(:feature_hash) do
     { "features" => [
-      { "id" => "time_travel", "description" => "Travel through time!" },
-      { "id" => "space_travel", "description" => "Travel through space!" }
+      { "id" => "time_travel", "description" => "Travel through time!", "depends_on" => "delorean" },
+      { "id" => "space_travel", "description" => "Travel through space!" },
+      { "id" => "delorean", "description" => "Shiny car" }
     ]}
   end
   let(:time_travel) { feature_hash["features"].first }
@@ -39,13 +40,27 @@ describe Jim::FeatureManager do
   describe "#features" do
     subject(:features) { feature_manager.features }
 
-    its(:length) { should eq(2) }
+    its(:length) { should eq(3) }
 
     describe "the first one" do
-      subject { features.first }
+      subject(:feature) { features.first }
 
       its(:id) { should eq(:time_travel) }
       its(:description) { should include("Travel through time!") }
+
+      describe "depends_on" do
+        subject { feature.depended_on }
+
+        its(:length) { should eq(1) }
+        its("first.id") { should eq(:delorean) }
+
+        context "depending on multiple features" do
+          before { time_travel["depends_on"] = [ "delorean", "space_travel" ] }
+
+          its(:length) { should eq(2) }
+          its("second.id") { should eq(:space_travel) }
+        end
+      end
     end
   end
 

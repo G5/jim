@@ -2,10 +2,14 @@ features:
   -
     id: time_travel
     description: "Traveling through time"
+    depends_on: delorean
     enablements:
       -
         method: ruby
         class_name: Enablement::TimeTravel
+  -
+    id: delorean
+    description: "A shiny car"
   -
     id: space_travel
     description: "Traveling through space"

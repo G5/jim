@@ -48,6 +48,21 @@ describe Jim::Feature do
 
       it { should be_false }
     end
+
+    context "with depended features" do
+      let(:other) { Jim::Feature.new(:test) }
+      before { feature.depends_on(other) }
+
+      context "when the depended feature is enabled" do
+        before { other.stub(enabled?: true) }
+        it { should be_true }
+      end
+
+      context "when the depended feature is disabled" do
+        before { other.stub(enabled?: false) }
+        it { should be_false }
+      end
+    end
   end
 
   describe "#enablements" do

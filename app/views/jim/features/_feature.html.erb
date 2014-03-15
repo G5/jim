@@ -36,4 +36,15 @@
       <% end %>
     </div>
   </div>
+
+  <% if feature.depended_on.present? %>
+    <div class="panel-footer">
+      Depends on
+      <% feature.depended_on.each do |depended_on| %>
+        <span class="label <%= redgreen_css_for(depended_on, :label) %>">
+          <%= depended_on.id %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
 </div>

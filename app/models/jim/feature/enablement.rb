@@ -2,11 +2,12 @@ module Jim::Feature::Enablement
   extend ActiveSupport::Concern
 
   included do
-    attr_reader :enablements
+    attr_reader :enablements, :depended_on
   end
 
   def initialize_enablement
     @enablements = []
+    @depended_on = []
   end
 
   def add_enablement(enablement_hash)
@@ -14,7 +15,11 @@ module Jim::Feature::Enablement
   end
 
   def enabled?
-    enablements.all?(&:enabled?)
+    depended_on.all?(&:enabled?) && enablements.all?(&:enabled?)
+  end
+
+  def depends_on(features)
+    @depended_on += [ features ].flatten
   end
 
 protected

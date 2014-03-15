@@ -1,8 +1,6 @@
-<div class="panel panel-info <%= feature.id %>">
+<div class="panel <%= feature.id %> <%= redgreen_css_for(feature, :panel) %>">
   <div class="panel-heading">
     <h4 class="panel-title">
-      <%= enablement_label(feature) %>
-
       <a data-toggle="collapse" href="#<%= feature.id %>">
         <%= feature.id %>
       </a>

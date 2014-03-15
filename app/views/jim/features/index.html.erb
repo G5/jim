@@ -14,8 +14,8 @@
   </div>
 <% end %>
 
-<% @features.each do |feature| %>
-  <div class="panel-group">
+<div class="panel-group">
+  <% @features.each do |feature| %>
     <%= render "feature", feature: feature %>
-  </div>
-<% end %>
+  <% end %>
+</div>

@@ -1,6 +1,11 @@
 module Jim::EnablementsHelper
+  def redgreen_css_for(object, base)
+    suffix = object.enabled? ? "success" : "danger"
+    "#{base}-#{suffix}"
+  end
+
   def enablement_label(object)
-    css_class = object.enabled? ? "label-success" : "label-danger"
+    css_class = redgreen_css_for(object, :label)
     text = object.enabled? ? "enabled" : "disabled"
 
     content_tag(:span, class: [ "label", css_class ] ) do

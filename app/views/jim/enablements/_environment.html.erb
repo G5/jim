@@ -1,29 +1,37 @@
 <%= enablements_list_item(environment) do %>
-  <p>
-    Environment variable '<%= environment.variable_name %>':
+  <dl class="dl-horizontal">
+    <dt>
+      Environment Variable
+    </dt>
+    <dd>
+      <code><%= environment.variable_name %></code>
+    </dd>
 
-    <%= environment_value(environment) %>
-  </p>
-
-  <% if environment.regex.present? %>
-    <% if environment.enabled? %>
-      matched
-    <% else %>
-      did not match
+    <% if !environment.enabled? && environment.example.present? %>
+      <dt>
+        Example
+      </dt>
+      <dd>
+        <code><%= environment.example %></code>
+      </dd>
     <% end %>
 
-    pattern <code><%= environment.regex.inspect %></code>
-  <% else %>
-    <% if environment.enabled? %>
-      was not blank
-    <% else %>
-      was blank
-    <% end %>
-  <% end %>
+    <dt>
+      Value
+    </dt>
+    <dd>
+      <%= environment_value(environment) %>
+    </dd>
 
-  <% if environment.example.present? %>
-    <p>
-      Example: <em><%= environment.example %></em>
-    </p>
-  <% end %>
+    <dt>
+      Test
+    </dt>
+    <dd>
+      <% if environment.regex.present? %>
+        <code><%= environment.regex.inspect %></code>
+      <% else %>
+        presence
+      <% end %>
+    </dd>
+  </dl>
 <% end %>

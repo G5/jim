@@ -34,14 +34,14 @@ describe "Feature list" do
       expect(page).to have_no_selector(".collapse.in")
 
       within(".enablements") do
-        expect(page).to have_content("Environment variable 'SHELL'")
+        expect(page).to have_content("Environment Variable SHELL")
         expect(page).to have_content(ENV["SHELL"])
-        expect(page).to have_content("/sh/")
-        expect(page).to have_content("Example: /bin/fish")
+        expect(page).to have_content("Test /sh/")
+        expect(page).to have_no_content("Example")
 
-        expect(page).to have_content("Environment variable 'USER'")
+        expect(page).to have_content("Environment Variable USER")
         expect(page).to have_no_content(ENV["USER"])
-        expect(page).to have_content("not blank")
+        expect(page).to have_content("Test presence")
         expect(page).to have_content("redacted")
       end
 

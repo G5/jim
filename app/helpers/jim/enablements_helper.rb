@@ -16,11 +16,11 @@ module Jim::EnablementsHelper
   def enablements_badge(feature)
     content_tag(:span, class: "badge") do
       total = feature.enablements.length
+      enabled = feature.enablements.count { |f| f.enabled? }
 
-      if feature.enabled?
+      if total == enabled
         total.to_s
       else
-        enabled = feature.enablements.count { |f| f.enabled? }
         "#{enabled}/#{total}"
       end
     end

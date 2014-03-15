@@ -28,6 +28,20 @@ describe Jim::Enablements::Environment do
     end
   end
 
+  describe "#is_set?" do
+    subject { enablement.is_set? }
+
+    context "when redact_value is false" do
+      before { arguments[:redact_value] = false }
+      it { should be_true }
+    end
+
+    context "when redact_value is true" do
+      before { arguments[:redact_value] = true }
+      it { should be_true }
+    end
+  end
+
   describe "#enabled?" do
     subject { enablement.enabled? }
     after { ENV.delete("test_enablement") }

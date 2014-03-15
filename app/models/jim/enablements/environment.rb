@@ -16,6 +16,10 @@ module Jim::Enablements
       @redact_value ? nil : @value
     end
 
+    def is_set?
+      @value.present?
+    end
+
     def to_partial_path
       "enablements/environment"
     end

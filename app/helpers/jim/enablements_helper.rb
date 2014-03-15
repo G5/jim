@@ -27,13 +27,15 @@ module Jim::EnablementsHelper
   end
 
   def environment_value(environment)
-    css_class = environment.redact_value ? "redacted" : nil
-    text = environment.redact_value ? "redacted" : environment.value
+    css_class = nil
+    text = environment.value
     tag = :code
 
-    if text.blank?
-      tag = :em
+    if environment.is_set? && environment.redact_value
+      css_class = text = "redacted"
+    elsif text.blank?
       text = "unset or blank"
+      tag = :em
     end
 
     content_tag(tag, class: css_class ) do

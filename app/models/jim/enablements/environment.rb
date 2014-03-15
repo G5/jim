@@ -20,6 +20,8 @@ module Jim::Enablements
       "enablements/environment"
     end
 
+  protected
+
     def passes_match?
       return true if @regex.nil?
       @value.match(@regex)

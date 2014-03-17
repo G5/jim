@@ -1,0 +1,1 @@
+require 'jim/rspec/enabler'

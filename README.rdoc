@@ -5,3 +5,4 @@ This project rocks and uses MIT-LICENSE.
 = TODO
  * Describe proper regex definition in a YAML file: http://codereview.stackexchange.com/questions/159/use-of-a-regex-stored-inside-yaml-file
  * Note that it requires 2.1. It's not that bad to make it work on earlier Ruby's but we really don't care.
+ * Mention the rspec helpers and metadata and that garbage.

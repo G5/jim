@@ -21,6 +21,31 @@ describe Jim::FeatureManager do
     end
   end
 
+  describe "enabled?" do
+    subject { feature_manager.enabled?(feature_id) }
+
+    context "passed a unknown feature ID" do
+      let(:feature_id) { :bad }
+
+      it "explodes helpfully" do
+        expect { subject }.to raise_error(Jim::UnknownFeatureError, /bad/)
+      end
+    end
+
+    context "passed a known feature ID" do
+      let(:feature_id) { :time_travel }
+
+      context "when the feature is enabled" do
+        it { should be_true }
+      end
+
+      context "when the feature is disabled" do
+        before { feature_manager.find_by_id(:time_travel).stub(enabled?: false) }
+        it { should be_false }
+      end
+    end
+  end
+
   describe "#find_by_id" do
     subject(:find) { feature_manager.find_by_id(:time_travel) }
 

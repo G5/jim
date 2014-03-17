@@ -15,6 +15,10 @@ class Jim::FeatureManager
     end
   end
 
+  def enabled?(feature_id)
+    find_by_id(feature_id).enabled?
+  end
+
   def find_by_id(feature_id)
     feature = @features.detect { |f| f.id == feature_id }
     raise Jim::UnknownFeatureError.new(feature_id) unless feature.present?

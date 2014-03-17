@@ -14,8 +14,9 @@ module Jim::Feature::Enablement
     @enablements << enablement_from_hash(enablement_hash)
   end
 
-  def enabled?
-    depended_on.all?(&:enabled?) && enablements.all?(&:enabled?)
+  def enabled?(include_depended: true)
+    (!include_depended || depended_on.all?(&:enabled?)) &&
+    enablements.all?(&:enabled?)
   end
 
   def depends_on(features)

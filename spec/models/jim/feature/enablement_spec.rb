@@ -60,7 +60,15 @@ describe Jim::Feature do
 
       context "when the depended feature is disabled" do
         before { other.stub(enabled?: false) }
-        it { should be_false }
+
+        context "by default" do
+          it { should be_false }
+        end
+
+        context "when passed include_depended: false" do
+          subject { feature.enabled?(include_depended: false) }
+          it { should be_true }
+        end
       end
     end
   end

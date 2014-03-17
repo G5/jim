@@ -1,6 +1,14 @@
 module Jim::EnablementsHelper
   def redgreen_css_for(object, base)
-    suffix = object.enabled? ? "success" : "danger"
+    enabled = object.enabled?
+
+    if object.is_a?(Jim::Feature)
+      enabled_sans_depended = object.enabled?(include_depended: false)
+      suffix = "warning" if enabled_sans_depended && !enabled
+    end
+
+    suffix ||= enabled ? "success" : "danger"
+
     "#{base}-#{suffix}"
   end
 

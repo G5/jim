@@ -15,6 +15,11 @@ RSpec.configure do |config|
         raise "enabled_features metdata requires an array of feature IDs!"
       end
 
+      conflicting_features = (enabled_features & Jim::Rspec.permanently_disabled)
+      unless conflicting_features.empty?
+        raise "You're trying to enable some permanently disabled features: '#{conflicting_features.inspect}'"
+      end
+
       enabled_features.each do |feature_id|
         Jim::FeatureManager.instance.find_by_id(feature_id)
         Jim::FeatureManager.instance.
@@ -34,7 +39,7 @@ RSpec.configure do |config|
     elsif !has_enabled
       Jim::FeatureManager.instance.stub(:enabled?) do |feature_id|
         Jim::FeatureManager.instance.find_by_id(feature_id)
-        true
+        !Jim::Rspec.permanently_disabled.include?(feature_id)
       end
     end
   end

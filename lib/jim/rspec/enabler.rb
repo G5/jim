@@ -1,5 +1,5 @@
 RSpec.configure do |config|
-  config.before(:each) do
+  config.before(:each) do |example|
     has_enabled = example.metadata.keys.include?(:enabled_features)
     enabled_features = example.metadata[:enabled_features]
 

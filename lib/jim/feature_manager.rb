@@ -15,8 +15,8 @@ class Jim::FeatureManager
     end
   end
 
-  def enabled?(feature_id)
-    find_by_id(feature_id).enabled?
+  def enabled?(*feature_ids)
+    feature_ids.all? { |id| find_by_id(id).enabled? }
   end
 
   def find_by_id(feature_id)

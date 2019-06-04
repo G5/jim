@@ -1,3 +1,5 @@
+require 'yaml'
+
 class Jim::FeatureManager
   def self.instance
     @instance ||= new(YAML.load_file(Rails.root.join("config", "features.yml")))

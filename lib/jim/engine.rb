@@ -7,7 +7,7 @@ module Jim
     end
 
     initializer 'activeservice.autoload', before: :set_autoload_paths do |app|
-      app.config.autoload_paths << Jim::Engine.root.join("lib")
+      app.config.autoload_paths += [Jim::Engine.root.join('lib').to_s]
     end
   end
 end

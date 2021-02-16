@@ -32,12 +32,12 @@ RSpec.configure do |config|
         raise "disabled_features metdata requires an array of feature IDs!"
       end
 
-      Jim::FeatureManager.instance.stub(:enabled?) do |feature_id|
+      allow_any_instance_of(Jim::FeatureManager).to receive(:enabled?) do |feature_id|
         Jim::FeatureManager.instance.find_by_id(feature_id)
         !disabled_features.include?(feature_id)
       end
     elsif !has_enabled
-      Jim::FeatureManager.instance.stub(:enabled?) do |feature_id|
+      allow_any_instance_of(Jim::FeatureManager).to receive(:enabled?) do |feature_id|
         Jim::FeatureManager.instance.find_by_id(feature_id)
         !Jim::Rspec.permanently_disabled.include?(feature_id)
       end

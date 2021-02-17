@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Feature list" do
+describe "Feature list", type: :feature  do
   it "sees a list of known features" do
     visit jim.features_path
 

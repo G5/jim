@@ -28,7 +28,7 @@ module Jim::Enablements
 
     def passes_match?
       return true if @regex.nil?
-      @value.match(@regex)
+      @value.match?(@regex)
     end
   end
 end

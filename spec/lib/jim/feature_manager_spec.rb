@@ -36,12 +36,12 @@ describe Jim::FeatureManager do
       let(:feature_id) { :time_travel }
 
       context "when the feature is enabled" do
-        it { should be_true }
+        it { should be true }
       end
 
       context "when the feature is disabled" do
         before { feature_manager.find_by_id(:time_travel).stub(enabled?: false) }
-        it { should be_false }
+        it { should be false }
       end
     end
   end

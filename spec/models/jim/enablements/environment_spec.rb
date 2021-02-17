@@ -7,7 +7,7 @@ describe Jim::Enablements::Environment do
   describe "accessors" do
     its(:variable_name) { should eq("SHELL") }
     its(:regex) { should be_nil }
-    its(:redact_value) { should be_false }
+    its(:redact_value) { should be false }
   end
 
   describe "#value" do
@@ -24,7 +24,7 @@ describe Jim::Enablements::Environment do
 
     context "when redact_value is true" do
       before { arguments[:redact_value] = true }
-      it { should be_nil }
+      it { should be nil }
     end
   end
 
@@ -33,12 +33,12 @@ describe Jim::Enablements::Environment do
 
     context "when redact_value is false" do
       before { arguments[:redact_value] = false }
-      it { should be_true }
+      it { should be true }
     end
 
     context "when redact_value is true" do
       before { arguments[:redact_value] = true }
-      it { should be_true }
+      it { should be true }
     end
   end
 
@@ -50,17 +50,17 @@ describe Jim::Enablements::Environment do
       let(:arguments) { { variable_name: "test_enablement" } }
 
       context "when the ENV var is not set" do
-        it { should be_false }
+        it { should be false }
       end
 
       context "when the ENV var is set but blank" do
         before { ENV["test_enablement"] = " " }
-        it { should be_false }
+        it { should be false }
       end
 
       context "when the ENV var is set" do
         before { ENV["test_enablement"] = "set" }
-        it { should be_true }
+        it { should be true }
       end
     end
 
@@ -68,17 +68,17 @@ describe Jim::Enablements::Environment do
       let(:arguments) { { variable_name: "test_enablement", matching: /^hello$/ } }
 
       context "when the ENV var is not set" do
-        it { should be_false }
+        it { should be false }
       end
 
       context "when the ENV var doesn't match" do
         before { ENV["test_enablement"] = "ello" }
-        it { should be_false }
+        it { should be false }
       end
 
       context "when the ENV var matches" do
         before { ENV["test_enablement"] = "hello" }
-        it { should be_true }
+        it { should be true }
       end
     end
   end

@@ -75,12 +75,12 @@ describe Jim::Enablements::Ruby do
     context "when the class can be found" do
       context "when its #enabled? is false" do
         let(:class_name) { "TestFalseRubyEnablement" }
-        it { should be_false }
+        it { should be false }
       end
 
       context "when its #enabled? is true" do
         let(:class_name) { "TestTrueRubyEnablement" }
-        it { should be_true }
+        it { should be true }
       end
     end
   end

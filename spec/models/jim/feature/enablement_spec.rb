@@ -34,7 +34,7 @@ describe Jim::Feature do
     subject { feature.enabled? }
 
     context "with all enabled enablements" do
-      it { should be_true }
+      it { should be true }
     end
 
     context "with one disabled enablement" do
@@ -46,7 +46,7 @@ describe Jim::Feature do
         )
       end
 
-      it { should be_false }
+      it { should be false }
     end
 
     context "with depended features" do
@@ -55,19 +55,19 @@ describe Jim::Feature do
 
       context "when the depended feature is enabled" do
         before { other.stub(enabled?: true) }
-        it { should be_true }
+        it { should be true }
       end
 
       context "when the depended feature is disabled" do
         before { other.stub(enabled?: false) }
 
         context "by default" do
-          it { should be_false }
+          it { should be false }
         end
 
         context "when passed include_depended: false" do
           subject { feature.enabled?(include_depended: false) }
-          it { should be_true }
+          it { should be true }
         end
       end
     end

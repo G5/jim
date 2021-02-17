@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
 
-  s.add_development_dependency 'capybara'
+  s.add_development_dependency 'capybara', '~> 3'
   s.add_development_dependency 'pry'
   s.add_dependency 'rails', '~> 6'
   s.add_dependency 'redcarpet'

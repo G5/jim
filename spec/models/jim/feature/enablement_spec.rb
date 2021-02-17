@@ -54,12 +54,12 @@ describe Jim::Feature do
       before { feature.depends_on(other) }
 
       context "when the depended feature is enabled" do
-        before { other.stub(enabled?: true) }
+        before { allow(other).to receive(:nabled?).and_return(true) }
         it { should be true }
       end
 
       context "when the depended feature is disabled" do
-        before { other.stub(enabled?: false) }
+        before { allow(other).to receive(:enabled?).and_return(false) }
 
         context "by default" do
           it { should be false }

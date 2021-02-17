@@ -40,7 +40,10 @@ describe Jim::FeatureManager do
       end
 
       context "when the feature is disabled" do
-        before { feature_manager.find_by_id(:time_travel).stub(enabled?: false) }
+        before do
+          f = feature_manager.find_by_id(:time_travel)
+          allow(f).to receive(:enabled?).and_return(false)
+        end
         it { should be false }
       end
     end
